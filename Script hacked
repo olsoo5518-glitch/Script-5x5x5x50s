@@ -1,0 +1,184 @@
+--[[
+WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+--[[
+WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- Create a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "5x5x5x50"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Make the GUI movable
+screenGui.Enabled = true
+
+-- Create a Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 400)
+frame.Position = UDim2.new(0.5, -150, 0.5, -200)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 0) -- Yellow color
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Create Title Label
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 50)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "5x5x5x50s v2 remake"
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 24
+titleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+titleLabel.Parent = frame
+
+-- Create Author Label
+local authorLabel = Instance.new("TextLabel")
+authorLabel.Size = UDim2.new(1, 0, 0, 30)
+authorLabel.Position = UDim2.new(0, 0, 0, 50)
+authorLabel.Text = "by 5x5x5x50"
+authorLabel.Font = Enum.Font.SourceSans
+authorLabel.TextSize = 18
+authorLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+authorLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+authorLabel.Parent = frame
+
+-- Function to set Skybox
+local function setSkybox()
+local skybox = Instance.new("Sky")
+skybox.SkyboxBk = "rbxassetid://133002145078068"
+skybox.SkyboxDn = "rbxassetid://133002145078068"
+skybox.SkyboxFt = "rbxassetid://133002145078068"
+skybox.SkyboxLf = "rbxassetid://133002145078068"
+skybox.SkyboxRt = "rbxassetid://133002145078068"
+skybox.SkyboxUp = "rbxassetid://133002145078068"
+skybox.Parent = game.Lighting
+end
+
+-- Button to Set Skybox
+local skyboxButton = Instance.new("TextButton")
+skyboxButton.Size = UDim2.new(1, 0, 0, 30)
+skyboxButton.Position = UDim2.new(0, 0, 0, 100)
+skyboxButton.Text = "Set Skybox"
+skyboxButton.Font = Enum.Font.SourceSans
+skyboxButton.TextSize = 18
+skyboxButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+skyboxButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+skyboxButton.MouseButton1Click:Connect(setSkybox)
+skyboxButton.Parent = frame
+
+-- Function to Spam Decals
+local function spamDecals()
+for _, obj in pairs(workspace:GetDescendants()) do
+if obj:IsA("Decal") then
+obj.Texture = "rbxassetid://111546215405171"
+end
+end
+end
+
+-- Button to Spam Decals
+local decalButton = Instance.new("TextButton")
+decalButton.Size = UDim2.new(1, 0, 0, 30)
+decalButton.Position = UDim2.new(0, 0, 0, 140)
+decalButton.Text = "Decal Spam"
+decalButton.Font = Enum.Font.SourceSans
+decalButton.TextSize = 18
+decalButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+decalButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+decalButton.MouseButton1Click:Connect(spamDecals)
+decalButton.Parent = frame
+
+-- Function for Jumpscare
+local function jumpscare()
+local jumpscareGui = Instance.new("ScreenGui")
+jumpscareGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local image = Instance.new("ImageLabel")  
+image.Size = UDim2.new(1, 0, 1, 0)  
+image.Image = "rbxassetid://133002145078068"  
+image.BackgroundTransparency = 1  
+image.Parent = jumpscareGui  
+
+wait(10)  
+jumpscareGui:Destroy()
+
+end
+
+-- Button for Jumpscare
+local jumpscareButton = Instance.new("TextButton")
+jumpscareButton.Size = UDim2.new(1, 0, 0, 30)
+jumpscareButton.Position = UDim2.new(0, 0, 0, 180)
+jumpscareButton.Text = "Jumpscare"
+jumpscareButton.Font = Enum.Font.SourceSans
+jumpscareButton.TextSize = 18
+jumpscareButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+jumpscareButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+jumpscareButton.MouseButton1Click:Connect(jumpscare)
+jumpscareButton.Parent = frame
+
+-- Function to Give Gun
+local function giveGun()
+local tool = Instance.new("Tool")
+tool.Name = "Gun"
+local handle = Instance.new("Part")
+handle.Size = Vector3.new(1, 1, 2)
+handle.Name = "Handle"
+handle.Parent = tool
+tool.Parent = game.Players.LocalPlayer:Backpack
+end
+
+-- Button to Give Gun
+local gunButton = Instance.new("TextButton")
+gunButton.Size = UDim2.new(1, 0, 0, 30)
+gunButton.Position = UDim2.new(0, 0, 0, 220)
+gunButton.Text = "Give Gun"
+gunButton.Font = Enum.Font.SourceSans
+gunButton.TextSize = 18
+gunButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gunButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+gunButton.MouseButton1Click:Connect(giveGun)
+gunButton.Parent = frame
+
+-- Function to Kill All
+local function killAll()
+for _, player in pairs(game.Players:GetPlayers()) do
+if player.Character and player.Character:FindFirstChild("Humanoid") then
+player.Character.Humanoid.Health = 0
+end
+end
+end
+
+-- Button to Kill All
+local killAllButton = Instance.new("TextButton")
+killAllButton.Size = UDim2.new(1, 0, 0, 30)
+killAllButton.Position = UDim2.new(0, 0, 0, 260)
+killAllButton.Text = "Kill All"
+killAllButton.Font = Enum.Font.SourceSans
+killAllButton.TextSize = 18
+killAllButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+killAllButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+killAllButton.MouseButton1Click:Connect(killAll)
+killAllButton.Parent = frame
+
+-- Function to Play Music
+local function playMusic()
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://1839246711"
+sound.Volume = 1
+sound.Looped = false
+sound.Parent = workspace
+sound:Play()
+end
+
+-- Button to Play Music
+local musicButton = Instance.new("TextButton")
+musicButton.Size = UDim2.new(1, 0, 0, 30)
+musicButton.Position = UDim2.new(0, 0, 0, 300)
+musicButton.Text = "Play Music"
+musicButton.Font = Enum.Font.SourceSans
+musicButton.TextSize = 18
+musicButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+musicButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+musicButton.MouseButton1Click:Connect(playMusic)
+musicButton.Parent = frame
