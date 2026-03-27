@@ -1,0 +1,40 @@
+local skyboxBtn = script.Parent.Skybox
+local musicBtn = script.Parent.Music
+local decalBtn = script.Parent.Decal
+
+-- Skybox
+skyboxBtn.MouseButton1Click:Connect(function()
+    local sky = Instance.new("Sky")
+
+    sky.SkyboxBk = "rbxassetid://77517300608106"
+    sky.SkyboxDn = "rbxassetid://77517300608106"
+    sky.SkyboxFt = "rbxassetid://77517300608106"
+    sky.SkyboxLf = "rbxassetid://77517300608106"
+    sky.SkyboxRt = "rbxassetid://77517300608106"
+    sky.SkyboxUp = "rbxassetid://77517300608106"
+
+    sky.Parent = game.Lighting
+end)
+
+-- Music
+musicBtn.MouseButton1Click:Connect(function()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://139581929665915"
+    sound.Volume = 2
+    sound.Looped = true
+    sound.Parent = workspace
+    sound:Play()
+end)
+
+-- Decal
+decalBtn.MouseButton1Click:Connect(function()
+    local part = Instance.new("Part")
+    part.Size = Vector3.new(10,1,10)
+    part.Position = Vector3.new(0,5,0)
+    part.Anchored = true
+    part.Parent = workspace
+
+    local decal = Instance.new("Decal")
+    decal.Texture = "rbxassetid://77517300608106"
+    decal.Parent = part
+end)
