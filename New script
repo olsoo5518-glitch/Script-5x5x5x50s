@@ -1,40 +1,137 @@
-local skyboxBtn = script.Parent.Skybox
-local musicBtn = script.Parent.Music
-local decalBtn = script.Parent.Decal
+local mainGui = script.Parent
+mainGui.Name = "5x5x5x50s v1 gui"
+
+-- Blue background
+mainGui.BackgroundColor3 = Color3.fromRGB(0, 85, 255)
+mainGui.BackgroundTransparency = 0
+mainGui.BorderSizePixel = 0
+
+-- Blue glow
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.fromRGB(0, 170, 255)
+stroke.Thickness = 3
+stroke.Parent = mainGui
+
+-- Title Label
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "Title"
+titleLabel.Text = "5x5x5x50s Gui v1"
+titleLabel.Size = UDim2.new(1, 0, 0, 50) -- full width, height 50
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 85)
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextScaled = true
+titleLabel.Parent = mainGui
+
+local skyboxBtn = mainGui.Skybox
+local musicBtn = mainGui.Music
+local decalBtn = mainGui.Decal
+
+-- Extra Button
+local resetBtn = Instance.new("TextButton")
+resetBtn.Name = "ResetButton"
+resetBtn.Text = "Reset"
+resetBtn.Size = UDim2.new(0, 120, 0, 40)
+resetBtn.Position = UDim2.new(0, 20, 0, 150) -- below other buttons
+resetBtn.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+resetBtn.TextColor3 = Color3.fromRGB(255,255,255)
+resetBtn.Parent = mainGui
+
+-- Function to make buttons fiery
+local function makeFieryButton(button)
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(255, 170, 0)
+    stroke.Thickness = 3
+    stroke.Parent = button
+
+    local gradient = Instance.new("UIGradient")  
+    gradient.Color = ColorSequence.new({  
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),  
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 170, 0)),  
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0))  
+    })  
+    gradient.Rotation = 45  
+    gradient.Parent = button
+end
+
+-- Apply fiery style to buttons
+makeFieryButton(skyboxBtn)
+makeFieryButton(musicBtn)
+makeFieryButton(decalBtn)
+makeFieryButton(resetBtn)
 
 -- Skybox
 skyboxBtn.MouseButton1Click:Connect(function()
     local sky = Instance.new("Sky")
-
-    sky.SkyboxBk = "rbxassetid://77517300608106"
-    sky.SkyboxDn = "rbxassetid://77517300608106"
-    sky.SkyboxFt = "rbxassetid://77517300608106"
-    sky.SkyboxLf = "rbxassetid://77517300608106"
-    sky.SkyboxRt = "rbxassetid://77517300608106"
-    sky.SkyboxUp = "rbxassetid://77517300608106"
-
+    local skyId = "rbxassetid://77517300608106"
+    sky.SkyboxBk = skyId
+    sky.SkyboxDn = skyId
+    sky.SkyboxFt = skyId
+    sky.SkyboxLf = skyId
+    sky.SkyboxRt = skyId
+    sky.SkyboxUp = skyId
     sky.Parent = game.Lighting
 end)
 
 -- Music
+local currentSound
 musicBtn.MouseButton1Click:Connect(function()
-    local sound = Instance.new("Sound")
-    sound.SoundId = "rbxassetid://139581929665915"
-    sound.Volume = 2
-    sound.Looped = true
-    sound.Parent = workspace
-    sound:Play()
+    if currentSound and currentSound.IsPlaying then
+        currentSound:Stop()
+        currentSound:Destroy()
+    end
+
+    local sound = Instance.new("Sound")  
+    sound.SoundId = "rbxassetid://139581929665915"  
+    sound.Volume = 2  
+    sound.Looped = true  
+    sound.Parent = workspace  
+    sound:Play()  
+    currentSound = sound
 end)
 
 -- Decal
 decalBtn.MouseButton1Click:Connect(function()
-    local part = Instance.new("Part")
-    part.Size = Vector3.new(10,1,10)
-    part.Position = Vector3.new(0,5,0)
-    part.Anchored = true
-    part.Parent = workspace
+    local existing = workspace:FindFirstChild("DecalPart")
+    if existing then existing:Destroy() end
 
-    local decal = Instance.new("Decal")
-    decal.Texture = "rbxassetid://77517300608106"
+    local part = Instance.new("Part")  
+    part.Name = "DecalPart"  
+    part.Size = Vector3.new(10,1,10)  
+    part.Position = Vector3.new(0,5,0)  
+    part.Anchored = true  
+    part.Parent = workspace  
+
+    local decal = Instance.new("Decal")  
+    decal.Texture = "rbxassetid://77517300608106"  
     decal.Parent = part
+end)
+
+-- Reset Button
+resetBtn.MouseButton1Click:Connect(function()
+    local existing = workspace:FindFirstChild("DecalPart")
+    if existing then existing:Destroy() end
+
+    if currentSound and currentSound.IsPlaying then  
+        currentSound:Stop()  
+        currentSound:Destroy()  
+        currentSound = nil  
+    end
+end)
+
+-- Fiy Button
+local fiyBtn = Instance.new("TextButton")
+fiyBtn.Name = "FiyButton"
+fiyBtn.Text = "Fiy"
+fiyBtn.Size = UDim2.new(0, 120, 0, 40)
+fiyBtn.Position = UDim2.new(0, 20, 0, 200) -- below Reset button
+fiyBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 170)
+fiyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+fiyBtn.Parent = mainGui
+
+makeFieryButton(fiyBtn)
+
+fiyBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
 end)
